@@ -46,7 +46,7 @@ class ProjectDataReader(object):
         """Read a YAML file and verify its data."""
         # Read the YAML file via PyYAML
         with self.path.open() as data_fp:
-            data = yaml.load(data_fp, Loader=yaml.CLoader)
+            data = yaml.load(data_fp, Loader=yaml.Loader)
 
         # Verify its data
         if not self.verify(data):

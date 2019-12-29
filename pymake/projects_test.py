@@ -93,4 +93,4 @@ class PyMakeProjectsTest(TestCase):
 
         # Dump the YAML data to file
         with YAML_FILE.open("w") as data_fp:
-            yaml.dump(data, data_fp, Dumper=yaml.CDumper)
+            yaml.dump(data, data_fp, Dumper=yaml.Dumper)
