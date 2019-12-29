@@ -71,7 +71,8 @@ class PyMakeProjectsTest(TestCase):
         self.create_yaml_file(YAML_FILE_DATA)
 
         # Make sure the constructor works when the YAML file given exists
-        self.assertTrue(Project(str(YAML_FILE)))
+        project = Project(str(YAML_FILE))
+        self.assertEqual(YAML_FILE, project.path)
 
     def test_reader_read(self):
         """Test the config.ProjectDataReader.read() method."""
