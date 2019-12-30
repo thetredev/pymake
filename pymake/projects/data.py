@@ -13,6 +13,8 @@ import pymake
 # >> PROJECT DATA TYPE DEFINITION
 # =============================================================================
 class ProjectData(NamedTuple):
+    """Class used to describe project data."""
+
     name: str
     description: str
     version: str
@@ -21,4 +23,5 @@ class ProjectData(NamedTuple):
 
     @classmethod
     def keys(cls):
+        """Shorthand for receiving custom class keys."""
         return pymake.get_cls_keys(cls)
