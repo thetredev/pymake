@@ -1,0 +1,35 @@
+name: "Simple Main"
+description: "First PyMake sample"
+version: "1.0"
+
+build_dir: "build"
+
+# Each toolchain will be evaluated by PyMake
+toolchains:
+  global:
+      flags:
+        - -std=c++11
+
+      definitions:
+        - PYMAKE_SAMPLE
+
+  g++:
+      definitions:
+        - PYMAKE_TOOLCHAIN=\"g++\"
+
+  clang++:
+      definitions:
+        - PYMAKE_TOOLCHAIN=\"clang++\"
+
+# linkers:
+
+targets:
+  SimpleMain:
+    source_files:
+      - "*.cpp"
+
+    output: "simple_main"
+    output_type: "executable"
+
+    # toolchains:
+    # linkers:

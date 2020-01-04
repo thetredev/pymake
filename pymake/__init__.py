@@ -1,9 +1,22 @@
+# =============================================================================
+# >> IMPORTS
+# =============================================================================
+# PyMake Imports
+#   Toolchains: Clang
+from pymake.toolchains.clang import ClangToolchainC
+from pymake.toolchains.clang import ClangToolchainCXX
+#   Toolchains: GCC
+from pymake.toolchains.gcc import GccToolchainC
+from pymake.toolchains.gcc import GccToolchainCXX
 
-def get_cls_keys(cls):
-    """Yield custom class keys."""
-    # Loop through all the class keys
-    for key in dir(cls):
 
-        # Only yield custom keys
-        if not key.startswith('_') and not callable(getattr(cls, key)):
-            yield key
+# =============================================================================
+# >> REGISTER TOOLCHAINS
+# =============================================================================
+# Register Clang family toolchains
+ClangToolchainC.register()
+ClangToolchainCXX.register()
+
+# Register GCC family toolchains
+GccToolchainC.register()
+GccToolchainCXX.register()
