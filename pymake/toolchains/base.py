@@ -39,7 +39,7 @@ class ToolchainBase(object):
 
         cls.instances[cls.name] = cls
 
-    def compile(self, target_data):
+    def build(self, target_data):
         """Compile the target via this toolchain."""
         # Join the source files to a string separated by whitespace
         source_files_string = " ".join(

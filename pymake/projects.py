@@ -12,6 +12,8 @@ from pathlib import Path
 from typing import NamedTuple
 
 # PyMake Imports
+#   Projects
+from pymake.listeners.managers import ListenerManager
 #   Targets
 from pymake.targets import TargetData
 #   Toolchains
@@ -35,18 +37,31 @@ class ProjectData(NamedTuple):
 
     def build(self):
         """Build the project sequentially."""
+        # Notify `PreBuildProject` listeners
+        ListenerManager.pre_build_project(self)
+
+        # Build the project
         for target in self.targets:
             for toolchain in target.toolchains:
-                target.compile(toolchain)
+                target.build(toolchain)
+
+        # Notify `PostBuildProject` listeners
+        ListenerManager.post_build_project(self)
 
     def build_parallel(self, processes=multiprocessing.cpu_count()):
         """Build the project in parallel."""
+        # Notify `PreBuildProject` listeners
+        ListenerManager.pre_build_project(self)
+
         # Create a multiprocessing pool
         pool = multiprocessing.Pool(processes)
 
-        # Compile each target for each toolchain
+        # Build the project
         for target in self.targets:
-            pool.map(target.compile, target.toolchains)
+            pool.map(target.build, target.toolchains)
+
+        # Notify `PostBuildProject` listeners
+        ListenerManager.post_build_project(self)
 
     @staticmethod
     def name_from_data(data):
@@ -90,9 +105,13 @@ class ProjectData(NamedTuple):
         """Return a `ProjectData` instance from the YAML data."""
         source_dir = ProjectData.source_dir_from_data(data)
         build_dir = ProjectData.build_dir_from_data(data)
+
+        # Notify `PreConfigureProject` listeners
+        ListenerManager.pre_configure_project(source_dir, build_dir)
+
         toolchains = ProjectData.toolchains_from_data(data.get("toolchains", dict()))
 
-        return ProjectData(
+        project_data = ProjectData(
             name=ProjectData.name_from_data(data),
             description=ProjectData.description_from_data(data),
             version=ProjectData.version_from_data(data),
@@ -102,6 +121,11 @@ class ProjectData(NamedTuple):
                 ProjectData.targets_from_data(build_dir, toolchains, source_dir, data.get("targets", dict()))
             )
         )
+
+        # Notify `PostConfigureProject` listeners
+        ListenerManager.post_configure_project(project_data)
+
+        return project_data
 
     @staticmethod
     def read(yaml_file):

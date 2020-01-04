@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import NamedTuple
 
 # PyMake Imports
+from pymake.listeners.managers import ListenerManager
 #   Toolchains
 from pymake.toolchains import ToolchainData
 from pymake.toolchains.base import ToolchainBase
@@ -37,9 +38,16 @@ class TargetData(NamedTuple):
     output_type: str
     toolchains: tuple
 
-    def compile(self, toolchain):
-        """Compile the target using the given toolchain."""
-        toolchain.compile(self)
+    def build(self, toolchain):
+        """Build the target using the given toolchain."""
+        # Notify `PreBuildTarget` listeners
+        ListenerManager.pre_build_target(self, toolchain)
+
+        # Build the target using the given toolchain
+        toolchain.build(self)
+
+        # Notify `PostBuildTarget` listeners
+        ListenerManager.post_build_target(self, toolchain)
 
     @staticmethod
     def source_files_from_data(source_dir, data):
@@ -118,7 +126,11 @@ class TargetData(NamedTuple):
     @classmethod
     def create(cls, build_dir, name, toolchains, source_dir, data):
         """Return a `TargetData` instance from the YAML data."""
-        return TargetData(
+        # Notify `PreConfigureTarget` listeners
+        ListenerManager.pre_configure_target(name)
+
+        # Create a `TargetData` instance from the YAML data
+        target_data = TargetData(
             name=name,
             source_files=TargetData.source_files_from_data(source_dir, data["source_files"]),
             output=TargetData.output_from_data(data),
@@ -126,3 +138,9 @@ class TargetData(NamedTuple):
             build_dir=build_dir,
             toolchains=tuple(TargetData.toolchains_from_data(toolchains))
         )
+
+        # Notify `PostConfigureTarget` listeners
+        ListenerManager.post_configure_target(target_data)
+
+        # Return the `TargetData` instance
+        return target_data
