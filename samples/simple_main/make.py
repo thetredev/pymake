@@ -44,9 +44,9 @@ def target_post_configure(target_data):
 
 @PreBuildTarget()
 def target_pre_build(target_data, toolchain):
-    print("PreBuildTarget:", target_data, toolchain, "\n")
+    print("PreBuildTarget:", target_data, "\n", toolchain.build_command(target_data), "\n")
 
 
 @PostBuildTarget()
 def target_post_build(target_data, toolchain):
-    print("PostBuildTarget:", target_data, toolchain, "\n")
+    print("PostBuildTarget:", target_data, "\n", toolchain.build_command(target_data), "\n")
