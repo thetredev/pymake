@@ -39,8 +39,8 @@ class ToolchainBase(object):
 
         cls.instances[cls.name] = cls
 
-    def build(self, target_data):
-        """Compile the target via this toolchain."""
+    def build_command(self, target_data):
+        """Generate a build command for the target via this toolchain."""
         # Join the source files to a string separated by whitespace
         source_files_string = " ".join(
             str(source_file) for source_file in target_data.source_files
@@ -61,7 +61,11 @@ class ToolchainBase(object):
             self.output_string(output_path)
         ]
 
-        call(" ".join(compile_cmd), shell=True)
+        return " ".join(compile_cmd)
+
+    def build(self, target_data):
+        """Compile the target via this toolchain."""
+        call(self.build_command(target_data), shell=True)
 
     def output_path(self, target_data):
         """Get the full output path for the given target, i.e. '<build_dir>/<toolchain>/<target_output>'."""
