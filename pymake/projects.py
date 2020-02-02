@@ -35,6 +35,10 @@ class ProjectData(NamedTuple):
 
     targets: tuple
 
+    def __repr__(self):
+        """Brief object representation."""
+        return f"<{self.name}> {self.description}\n in: {str(self.build_dir.resolve())}"
+
     def build(self):
         """Build the project sequentially."""
         # Notify `PreBuildProject` listeners
