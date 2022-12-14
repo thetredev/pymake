@@ -51,7 +51,18 @@ class ToolchainData(NamedTuple):
     @staticmethod
     def definitions_from_data(data):
         """Return a tuple of definitions from the YAML data."""
-        return tuple(data.get("definitions", tuple()))
+        definitions: dict = data.get("definitions", dict())
+
+        if not definitions:
+            return definitions
+
+        return [
+            *definitions.get("macros", list()),
+            *[
+                rf'{key}=\"{value}\"' if isinstance(value, str) else f"{key}={value}"
+                for key, value in definitions.get("tokenized", dict()).items()
+            ]
+        ]
 
     @staticmethod
     def create(name, data):

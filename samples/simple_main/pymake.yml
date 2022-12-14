@@ -11,11 +11,15 @@ toolchains:
         - -std=c++11
 
       definitions:
-        - PYMAKE_SAMPLE
+        macros:
+          - PYMAKE_SAMPLE
 
   g++:
       definitions:
-        - PYMAKE_TOOLCHAIN=\"g++\"
+        tokenized:
+          PYMAKE_TOOLCHAIN: "g++"
+          SOME_INT: 3
+          SOME_INT_AS_STR: "5"
 
   # clang++:
   #     definitions:
