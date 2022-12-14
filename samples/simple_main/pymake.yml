@@ -16,6 +16,8 @@ toolchains:
 
   g++:
       definitions:
+        macros:
+          - SOME_NEW_MACRO
         tokenized:
           PYMAKE_TOOLCHAIN: "g++"
           SOME_INT: 3
