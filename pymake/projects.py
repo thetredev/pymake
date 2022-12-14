@@ -144,4 +144,5 @@ class ProjectData(NamedTuple):
         # Read the YAML file via PyYAML and return a `ProjectData` instance.
         with yaml_file.open() as data_fp:
             project_data_yaml = yaml.load(data_fp, Loader=yaml.Loader)
-            return ProjectData.create(project_data_yaml)
+
+        return ProjectData.create(project_data_yaml)
