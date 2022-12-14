@@ -7,26 +7,26 @@ build_dir: "build"
 # Each toolchain will be evaluated by PyMake
 toolchains:
   global:
-      flags:
-        - -std=c++11
+    flags:
+      - -std=c++11
 
-      definitions:
-        macros:
-          - PYMAKE_SAMPLE
+    definitions:
+      macros:
+        - PYMAKE_SAMPLE
 
   g++:
-      definitions:
-        macros:
-          - SOME_NEW_MACRO
-        tokenized:
-          PYMAKE_TOOLCHAIN: "g++"
-          SOME_INT: 3
-          SOME_INT_AS_STR: "5"
+    definitions:
+      macros:
+        - SOME_NEW_MACRO
+      tokenized:
+        PYMAKE_TOOLCHAIN: "g++"
+        SOME_INT: 3
+        SOME_INT_AS_STR: "5"
 
   clang++:
-      definitions:
-        tokenized:
-          PYMAKE_TOOLCHAIN: "clang++"
+    definitions:
+      tokenized:
+        PYMAKE_TOOLCHAIN: "clang++"
 
 # linkers:
 
