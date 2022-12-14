@@ -39,7 +39,8 @@ class ToolchainData(NamedTuple):
         spawn_result = distutils.spawn.find_executable(path)
 
         if spawn_result is None:
-            raise ValueError(f"Could not find toolchain executable: {executable}")
+            print(f"[WARN] Could not find toolchain executable: {executable}. Skipping this one...")
+            return None
 
         return Path(spawn_result)
 
@@ -67,9 +68,14 @@ class ToolchainData(NamedTuple):
     @staticmethod
     def create(name, data):
         """Return a `ToolchainData` instance from the YAML data."""
+        toolchain_path = ToolchainData.path_from_data(name)
+
+        if toolchain_path is None and name != "global":
+            return None
+
         return ToolchainData(
             name=name,
-            path=ToolchainData.path_from_data(name),
+            path=toolchain_path,
             flags=ToolchainData.flags_from_data(data),
             definitions=ToolchainData.definitions_from_data(data)
         )

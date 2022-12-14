@@ -23,9 +23,10 @@ toolchains:
           SOME_INT: 3
           SOME_INT_AS_STR: "5"
 
-  # clang++:
-  #     definitions:
-  #       - PYMAKE_TOOLCHAIN=\"clang++\"
+  clang++:
+      definitions:
+        tokenized:
+          PYMAKE_TOOLCHAIN: "clang++"
 
 # linkers:
 

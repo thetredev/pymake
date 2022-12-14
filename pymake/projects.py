@@ -96,7 +96,10 @@ class ProjectData(NamedTuple):
     def toolchains_from_data(data):
         """Yield a `ToolchainData` instance for each toolchain from the YAML data."""
         for name, toolchain_data in data.items():
-            yield ToolchainData.create(name, toolchain_data)
+            toolchain = ToolchainData.create(name, toolchain_data)
+
+            if toolchain is not None:
+                yield toolchain
 
     @staticmethod
     def targets_from_data(build_dir, toolchains, source_dir, data):
