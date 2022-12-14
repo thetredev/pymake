@@ -17,9 +17,9 @@ toolchains:
       definitions:
         - PYMAKE_TOOLCHAIN=\"g++\"
 
-  clang++:
-      definitions:
-        - PYMAKE_TOOLCHAIN=\"clang++\"
+  # clang++:
+  #     definitions:
+  #       - PYMAKE_TOOLCHAIN=\"clang++\"
 
 # linkers:
 
