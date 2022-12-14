@@ -40,7 +40,7 @@ class TargetData(NamedTuple):
 
     def __repr__(self):
         """Brief object representation."""
-        return f"{self.name}: [{str(self.build_dir.joinpath(self.output))}] as [{self.output_type}]"
+        return f"<{self.name}: [{str(self.build_dir.joinpath(self.output))}] as [{self.output_type}]>"
 
     def build(self, toolchain):
         """Build the target using the given toolchain."""

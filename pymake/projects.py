@@ -131,7 +131,7 @@ class ProjectData(NamedTuple):
 
         for target in project_data.targets:
             if not target.toolchains:
-                raise ValueError(f"No toolchain found for target <{target}>! Exiting...")
+                raise ValueError(f"No toolchain found for target {target}! Exiting...")
 
         # Notify `PostConfigureProject` listeners
         ListenerManager.post_configure_project(project_data)
