@@ -43,18 +43,18 @@ class ToolchainBase(object):
         """Generate a build command for the target via this toolchain."""
         # Join the source files to a string separated by whitespace
         source_files_string = " ".join(
-            str(source_file) for source_file in target_data.source_files
+            source_file.as_posix() for source_file in target_data.source_files
         )
 
         # Get the target output path
         output_path = self.output_path(target_data)
 
         # Make sure the output path exists
-        recursive_mkdir(str(output_path).split(os.sep))
+        recursive_mkdir(output_path.as_posix().split(os.sep))
 
         # Compile the target via this toolchain
         compile_cmd = [
-            str(self.data.path),
+            self.data.path.as_posix(),
             *self.definitions(target_data),
             *self.flags(target_data),
             source_files_string,

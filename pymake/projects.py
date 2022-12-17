@@ -38,7 +38,7 @@ class ProjectData(object):
 
     def __repr__(self):
         """Brief object representation."""
-        return f"<{self.name}> {self.description}\n in: {str(self.build_dir.resolve())}"
+        return f"<{self.name}> {self.description}\n in: {self.build_dir.resolve().as_posix()}"
 
     def build(self):
         """Build the project sequentially."""

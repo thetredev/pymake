@@ -38,7 +38,7 @@ def main():
     make_py = Path("make.py")
 
     if make_py.exists():
-        spec = importlib.util.spec_from_file_location("make", str(make_py))
+        spec = importlib.util.spec_from_file_location("make", make_py.as_posix())
         make = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(make)
 
