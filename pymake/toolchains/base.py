@@ -5,7 +5,7 @@
 #   OS
 import os
 #   Subprocess
-from subprocess import call
+import subprocess
 
 # PyMake Imports
 #   Toolchains
@@ -65,7 +65,7 @@ class ToolchainBase(object):
 
     def build(self, target_data):
         """Compile the target via this toolchain."""
-        call(self.build_command(target_data), shell=True)
+        subprocess.call(self.build_command(target_data), shell=True)
 
     def output_path(self, target_data):
         """Get the full output path for the given target, i.e. '<build_dir>/<toolchain>/<target_output>'."""
