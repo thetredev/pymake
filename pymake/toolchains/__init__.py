@@ -2,18 +2,19 @@
 # >> IMPORTS
 # =============================================================================
 # Python Imports
+#   Dataclasses
+from dataclasses import dataclass
 #   Distutils
 import distutils.spawn
 #   Pathlib
 from pathlib import Path
-#   Typing
-from typing import NamedTuple
 
 
 # =============================================================================
 # >> TOOLCHAIN DATA TYPE DEFINITION
 # =============================================================================
-class ToolchainData(NamedTuple):
+@dataclass(slots=True)
+class ToolchainData(object):
     """Class used to hold read-only toolchain data."""
 
     name: str

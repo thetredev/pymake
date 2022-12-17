@@ -2,14 +2,14 @@
 # >> IMPORTS
 # =============================================================================
 # Python Imports
+#   Dataclasses
+from dataclasses import dataclass
 #   Multiprocessing
 import multiprocessing
 #   PyYAML
 import yaml
 #   Pathlib
 from pathlib import Path
-#   Typing
-from typing import NamedTuple
 
 # PyMake Imports
 #   Projects
@@ -23,7 +23,8 @@ from pymake.toolchains import ToolchainData
 # =============================================================================
 # >> PROJECT DATA TYPE DEFINITION
 # =============================================================================
-class ProjectData(NamedTuple):
+@dataclass(slots=True)
+class ProjectData(object):
     """Class used to hold read-only project data."""
 
     name: str

@@ -2,12 +2,12 @@
 # >> IMPORTS
 # =============================================================================
 # Python Imports
+#   Dataclasses
+from dataclasses import dataclass
 #   Enum
 from enum import IntEnum
 #   Pathlib
 from pathlib import Path
-#   Typing
-from typing import NamedTuple
 
 # PyMake Imports
 from pymake.listeners.managers import ListenerManager
@@ -28,7 +28,8 @@ class OutputTypes(IntEnum):
 # =============================================================================
 # >> TARGET DATA TYPE DEFINITION
 # =============================================================================
-class TargetData(NamedTuple):
+@dataclass(slots=True)
+class TargetData(object):
     """Class used to hold read-only target data."""
 
     name: str
