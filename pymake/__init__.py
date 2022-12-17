@@ -18,19 +18,22 @@ from pymake.toolchains.gcc import GccToolchainC
 from pymake.toolchains.gcc import GccToolchainCXX
 
 
-# =============================================================================
-# >> REGISTER TOOLCHAINS
-# =============================================================================
-# Register Clang family toolchains
-ClangToolchainC.register()
-ClangToolchainCXX.register()
+def register_toolchains():
+    """Register toolchains."""
+    toolschains = (
+        ClangToolchainC,
+        ClangToolchainCXX,
+        GccToolchainC,
+        GccToolchainCXX
+    )
 
-# Register GCC family toolchains
-GccToolchainC.register()
-GccToolchainCXX.register()
+    for toolchain in toolschains:
+        toolchain.register()
 
 
 def main():
+    register_toolchains()
+
     # Load the make.py module, if it exists
     make_py = Path("make.py")
 
